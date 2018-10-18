@@ -1,3 +1,12 @@
+/**
+
+RectLoader.cpp
+Purpose: Contains all the functions for rectanle loading algorithm.
+
+@author Dinesh Kumar Sivaji
+@version 0.1 17/10/2018 Initial Version
+*/
+
 #include "RectLoader.h"
 
 // --------------------------------------------------------------------------------

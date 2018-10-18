@@ -1,0 +1,28 @@
+Problem Description:
+Load a list of rectangles with different sizes from a single ASCII/ANSI text file.
+Loaded rectangle should be placed inside one square layout.
+•	The rectangles must not overlap with each other.
+•	The square should be as small as possible.
+The result should be the size of the square and the actual placement of all input rectangles.
+
+
+Algorithm Description:
+Step 1: Read the rectangle dimensions from the input file.
+Step 2: Load the rectangle inside Dynamic Array list.
+Step 3: Create the square layout as minimum as possible(1 * 1 ).
+Step 4: Sort the rectangle list by longest dimension.
+Step 5: Try to place the longest rectangle inside the square layout.
+Step 6: Increase the square layout by (n * 2) to fit the rectangle.
+Step 7: Add the next rectangle, either to the right or below this one.
+Step 8: Repeat the Step 6 until all the rectangles are added in the square layout
+
+
+Conclusion:
+This algorithm works faster due to less time spent in searching for the suitable place.
+
+
+Next Steps:
+This algorithm can be fine tuned according to the user need.
+Square Layout increase formula (n *2) can be replaced to(n+1) for placing the rectangle inside minimum space.
+
+

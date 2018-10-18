@@ -2,9 +2,10 @@
 
 TestAlgorithm.cpp
 Purpose: Invoke the RectLoader Algorithem and fill the square 
-		 layout with Reatangles provided in inpur text file .
+		 layout with Reatangles provided in inpur text file.
 
-		 Input file have to be in the same folder as the source code
+		 Input file(Input.txt) have to be in the same folder as the source code.
+		 Input file contains rectangle dimentions.
 
 @author Dinesh Kumar Sivaji
 @version 0.1 17/10/2018 Initial Version
@@ -69,7 +70,7 @@ void loadRectangle(SubRectArray &subRects)
 	ifstream infile;
 	char data[100];
 
-	infile.open("Rect.txt");
+	infile.open("Input.txt");
 	int i = 0;
 	while (infile >> item_name)
 	{
