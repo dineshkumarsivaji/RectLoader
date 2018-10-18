@@ -19,6 +19,7 @@ Purpose: Invoke the RectLoader Algorithem and fill the square
 #include <sstream>
 #include <iterator>
 #include "RectLoader.h";
+#include <ctime>
 using namespace std;
 
 // --------------------------------------------------------------------------------
@@ -125,7 +126,7 @@ void createLayout(LayoutArray &rectLayout, SubRectArray &subRects)
 // --------------------------------------------------------------------------------
 int main()
 {
-
+	int start_s = clock();
 	SubRectArray subRects;
 	LayoutArray layout;
 
@@ -147,10 +148,13 @@ int main()
 			it != layout.end();
 			++it)
 		{
-			printf("  Suqare %d, size %dx%d, Coverage %d / %d (%d%%)\n",
-				it - layout.begin(), it->GetW(), it->GetH(),
+			printf("  Suqare size %dx%d, Coverage %d / %d (%d%%)\n",
+				it->GetW(), it->GetH(),
 				it->GetArea(), it->GetTotalArea(), it->GetArea() * 100 / it->GetTotalArea());
 		}
 	}
+	int stop_s = clock();
+	printf(" Total time to execute: %d  sec", (stop_s - start_s) / double(CLOCKS_PER_SEC));
+	std::getchar();
 	return 0; 
 }
