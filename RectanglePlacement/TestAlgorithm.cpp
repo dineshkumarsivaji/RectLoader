@@ -14,14 +14,15 @@ Purpose: Invoke the RectLoader Algorithem and fill the square
 
 #include <string>
 #include <iostream>
-#include <algorithm>
+#include <algorithm>   // For sorting
 #include <fstream>
 #include <sstream>
 #include <iterator>
 #include "RectLoader.h";
-#include <ctime>
-using namespace std;
+#include <chrono>   // For Clock
 
+using namespace std;
+using namespace std::chrono;
 // --------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------
 
@@ -126,7 +127,8 @@ void createLayout(LayoutArray &rectLayout, SubRectArray &subRects)
 // --------------------------------------------------------------------------------
 int main()
 {
-	int start_s = clock();
+	auto start = high_resolution_clock::now();
+
 	SubRectArray subRects;
 	LayoutArray layout;
 
@@ -153,8 +155,9 @@ int main()
 				it->GetArea(), it->GetTotalArea(), it->GetArea() * 100 / it->GetTotalArea());
 		}
 	}
-	int stop_s = clock();
-	printf(" Total time to execute: %d  sec", (stop_s - start_s) / double(CLOCKS_PER_SEC));
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(stop - start);
+	printf(" Total time to execute: %d  milliseconds", duration.count()/1000);
 	std::getchar();
 	return 0; 
 }
