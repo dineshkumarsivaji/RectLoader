@@ -1,14 +1,14 @@
 /**
 
 RectLoader.cpp
-Purpose: Contains all the functions for rectanle loading algorithm.
+Purpose: Contains all the functions for rectangle loading algorithm.
 
 @author Dinesh Kumar Sivaji
 @version 0.1 17/10/2018 Initial Version
 */
-
+#pragma once
 #include "RectLoader.h"
-
+#include <vector>
 // --------------------------------------------------------------------------------
 // Name        : Init
 // Description : Constructor Function call
@@ -79,7 +79,7 @@ void RectLoader::AddPosition(const LayoutPos &p)
 
 // --------------------------------------------------------------------------------
 // Name        : AddRect
-// Description : Add the given rect and updates anchor points
+// Description : Add the given rectangle and updates anchor points
 // @param	   : a Square Layout
 // @return	   : a boolean confirmation
 // --------------------------------------------------------------------------------
@@ -157,7 +157,7 @@ bool RectLoader::AddAtEmptySpotAutoGrow(Square *pRect)
 	{
 		int pw = m_size.w;
 		int ph = m_size.h;
-		// Grow both and reloop.
+		// Grow both and re-loop.
 			m_size.w = pw * 2;
 			m_size.h = ph * 2;
 

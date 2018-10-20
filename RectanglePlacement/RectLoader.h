@@ -41,11 +41,6 @@ public:
 		static bool Greater(const Square &a, const Square &b) { return (a.w > b.w && a.w > b.h) || (a.h > b.w && a.h > b.h); }  // Greater size in at least one dim.
 	};
 
-
-	RectLoader(const string& filePath);
-
-	vector<Square> load();
-
 	typedef vector<LayoutPos>  PosArrayList;
 	typedef vector<Square> RectArrayList;
 

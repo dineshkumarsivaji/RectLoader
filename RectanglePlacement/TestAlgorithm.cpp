@@ -1,31 +1,42 @@
 /**
 
 TestAlgorithm.cpp
-Purpose: Invoke the RectLoader Algorithem and fill the square 
-		 layout with Reatangles provided in inpur text file.
+Purpose: Invoke the RectLoader Algorithm and fill the square 
+		 layout with Rectangles provided in input text file.
 
 		 Input file(Input.txt) have to be in the same folder as the source code.
-		 Input file contains rectangle dimentions.
+		 Input file contains rectangle dimensions.
 
 @author Dinesh Kumar Sivaji
 @version 0.1 17/10/2018 Initial Version
+		 0.2 18/10/2018 Formatting correction
+		 0.3 18/10/2018 Added Clock to find the execution time 
+		 0.4 19/10/2018 Added few File validation
+		 0.5 19/10/2018 Included Stress Test
 */
-
-
+#pragma once
+#include <vector>
 #include <string>
 #include <iostream>
 #include <algorithm>   // For sorting
 #include <fstream>
 #include <sstream>
 #include <iterator>
-#include "RectLoader.h";
 #include <chrono>   // For Clock
+#include "RectLoader.h";
 
 using namespace std;
 using namespace std::chrono;
-// --------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------
 
+
+const char DELIMITER = ',';				  // Delimiter
+const string FILEPATH = "Input.txt";      // Input file path
+
+
+// --------------------------------------------------------------------------------
+// Name        : SubRect
+// Description : Struct for Rectangle
+// --------------------------------------------------------------------------------
 struct SubRect : public RectLoader::Square
 {
 	int n;      // Original index of this subrect, before sorting
@@ -34,16 +45,14 @@ struct SubRect : public RectLoader::Square
 	SubRect(int _w, int _h, int _n) : Square(0, 0, _w, _h), n(_n) { }
 };
 
-
-// typedef for simplicity
-typedef vector<SubRect> SubRectArray;
+typedef vector<SubRect> SubRectArray;		// typedef for simplicity
 typedef vector<RectLoader> LayoutArray;
-
 
 // --------------------------------------------------------------------------------
 // Name        : splitString
 // Description : Here we split the string with given delimiter
-// @param	   : Rectangle dimentions in string and delimiter in char
+//				 TODO: function can be extended to number and other validation
+// @param	   : Rectangle dimensions in string and delimiter in char
 // @return	   : a string array list of Rectangle width and height
 // --------------------------------------------------------------------------------
 vector<string> splitString(const string& s, char delimiter)
@@ -60,29 +69,39 @@ vector<string> splitString(const string& s, char delimiter)
 
 // --------------------------------------------------------------------------------
 // Name        : LoadRectangle
-// Description : Here we can get reactangels diminsitions from file,
-//               and load the reactangles inside dynamic array (Vector)
+// Description : Here we can get rectangle dimensions from file,
+//               and load the rectangles inside dynamic array (Vector)
 // @param	   : a sub Rectangle array list
 // --------------------------------------------------------------------------------
 void loadRectangle(SubRectArray &subRects)
 {
 	subRects.clear();
 
-	string item_name;
-	ifstream infile;
+	string itemName;
+	ifstream inFile;
 	char data[100];
 
-	infile.open("Input.txt");
-	int i = 0;
-	while (infile >> item_name)
-	{
-		vector<string> subString = splitString(item_name, ',');
-		int w = stoi (subString[0]);
-		int h = stoi(subString[1]);
-		subRects.push_back(SubRect(w, h, i));
-		i++;
+	inFile.open(FILEPATH);
+	if (inFile.fail()) { //can't find file, it will fail
+		cout << "Input file not found!!" << endl;
+		exit(1);
 	}
-	infile.close();
+	int i = 0;
+	while (inFile >> itemName)
+	{
+		vector<string> subString = splitString(itemName, DELIMITER);
+		if (subString.size() == 2)
+		{
+			unsigned int w = abs((subString[0] == "") ? 0 : stoi(subString[0]));  // Sting, negative number conversion 
+			unsigned int h = abs((subString[1] == "") ? 0 : stoi(subString[1])); // Sting, negative number conversion 
+			if (w != 0 && h != 0)
+			{
+				subRects.push_back(SubRect(w, h, i));
+				i++;
+			}
+		}
+	}
+	inFile.close();
 }
 
 
@@ -150,14 +169,14 @@ int main()
 			it != layout.end();
 			++it)
 		{
-			printf("  Suqare size %dx%d, Coverage %d / %d (%d%%)\n",
+			printf("  Square size %dx%d, Coverage %d / %d (%d%%)\n",
 				it->GetW(), it->GetH(),
 				it->GetArea(), it->GetTotalArea(), it->GetArea() * 100 / it->GetTotalArea());
 		}
 	}
 	auto stop = high_resolution_clock::now();
-	auto duration = duration_cast<microseconds>(stop - start);
-	printf(" Total time to execute: %d  milliseconds", duration.count()/1000);
+	auto duration = duration_cast<milliseconds>(stop - start);
+	printf(" Total time to execute: %d  milliseconds", duration.count());
 	std::getchar();
 	return 0; 
 }
