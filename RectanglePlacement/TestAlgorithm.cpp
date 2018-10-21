@@ -23,11 +23,10 @@ Purpose: Invoke the RectLoader Algorithm and fill the square
 #include <sstream>
 #include <iterator>
 #include <chrono>   // For Clock
-#include "RectLoader.h";
+#include "RectLoader.h"
 
 using namespace std;
 using namespace std::chrono;
-
 
 const char DELIMITER = ',';				  // Delimiter
 const string FILEPATH = "Input.txt";      // Input file path
@@ -79,7 +78,6 @@ void loadRectangle(SubRectArray &subRects)
 
 	string itemName;
 	ifstream inFile;
-	char data[100];
 
 	inFile.open(FILEPATH);
 	if (inFile.fail()) { //can't find file, it will fail
@@ -176,7 +174,7 @@ int main()
 	}
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<milliseconds>(stop - start);
-	printf(" Total time to execute: %d  milliseconds", duration.count());
+	printf(" Total time to execute: %I64d  milliseconds", duration.count());
 	std::getchar();
 	return 0; 
 }
